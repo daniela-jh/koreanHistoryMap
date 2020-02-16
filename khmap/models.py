@@ -10,7 +10,6 @@ class Content(models.Model):
     locLat = models.DecimalField(max_digits=20, decimal_places=17, default=None)
     locLng = models.DecimalField(max_digits=20, decimal_places=17, default=None)
 
-
     def contentSave(self):
         self.save()
 

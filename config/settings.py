@@ -1,4 +1,4 @@
-import os
+import os, json
 from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'khmap'
+    'khmap',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
