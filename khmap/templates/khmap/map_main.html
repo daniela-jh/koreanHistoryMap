@@ -41,29 +41,73 @@
 		};
 
 		var map = new naver.maps.Map('map', mapOptions);
-		var contentMarkers = {};
+		var contentMarkers = {},
+			contentWindows = {};
+		var markerIds = [];
 
-		{% for content in contents %}
-		var marker = new naver.maps.Marker({
-			position: new naver.maps.LatLng({{ content.locLat }}, {{ content.locLng }}),
-			map: map
+		{% for locContent in contents %}
+
+		markerIds.push({{ locContent.id }});
+
+		var contentString = [
+			'<div class="iw_inner">',
+			'	<h4> {{locContent.locationName}} </h4>',
+			'	<p> {{locContent.locationText1}}<br>',
+			'		{{locContent.locationText2}}<br>',
+			'		{{locContent.locationText3}}<br>',
+			'		{{locContent.locationText4}}<br>',
+			'	</p>',
+			'</div>'
+		].join('');
+
+		var position = new naver.maps.LatLng({{ locContent.locLat }}, {{ locContent.locLng }});
+
+		var marker = new naver.maps.Marker({			
+			map: map,
+			position: position,
+			title: "{{ locContent.locationName }}"		
 		});
 
-		contentMarkers[{{ content.id }}] = marker;
-
-		naver.maps.Event.addListener(map, 'click', function(e) {
-			console.log("{{content.locationText1}}");
-			console.log("{{content.locationText2}}");
-			console.log("{{content.locationText3}}");
-			console.log("{{content.locationText4}}");
+		var infowindow = new naver.maps.InfoWindow({
+		    content: contentString
 		});
+
+		contentMarkers[{{ locContent.id }}] = marker;
+		contentWindows[{{ locContent.id }}] = infowindow;
+
+		// naver.maps.Event.addListener(marker, 'click', function(e) {
+		// 	if (contentWindows[{{ locContent.id }}].getMap()) {
+		//         contentWindows[{{ locContent.id }}].close();
+		//     } else {
+		//         contentWindows[{{ locContent.id }}].open(map, contentMarkers[{{ locContent.id }}]);
+		//     }
+		// });
+
+
+
+			// console.log("{{content.locationText1}}");
+			// console.log("{{content.locationText2}}");
+			// console.log("{{content.locationText3}}");
+			// console.log("{{content.locationText4}}");
 
 		{% endfor %}
 
-		naver.maps.Event.addListener(map, 'click', function(e) {
-			marker.setPosition(e.latlng);
-		});
+		function getClickHandler(seq) {
+			return function(e) {
+				var marker = contentMarkers[seq],
+					infoWindow = contentWindows[seq];
 
+				if (infoWindow.getMap()) {
+					infoWindow.close();
+				} else {
+					infoWindow.open(map, marker);
+				}
+			}
+		}
+
+		for (var i = 0 ; i < markerIds.length; i++) {
+		    naver.maps.Event.addListener(contentMarkers[markerIds[i]], 'click', getClickHandler(markerIds[i]));
+		}
 	</script>
 
 	
