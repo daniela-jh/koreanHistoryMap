@@ -7,8 +7,8 @@ class Content(models.Model):
     locationText2 = models.CharField(max_length=80)
     locationText3 = models.CharField(max_length=80)
     locationText4 = models.CharField(max_length=80)
-    locLat = models.DecimalField(max_digits=20, decimal_places=17, default=None)
-    locLng = models.DecimalField(max_digits=20, decimal_places=17, default=None)
+    locLat = models.DecimalField(max_digits=12, decimal_places=9, default=None)
+    locLng = models.DecimalField(max_digits=12, decimal_places=9, default=None)
 
     def contentSave(self):
         self.save()

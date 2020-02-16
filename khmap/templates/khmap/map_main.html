@@ -25,18 +25,13 @@
 		</form>
 		
 	</nav>
-	<div>
-		<p> test <br>
-			{{ contents }}
-		</p>
-	</div>
 
-	<div id="map" style="width:100%;height:500px;"></div>
+	<div id="map" style="width:100%;height:700px;"></div>
 
 	<script type="text/javascript">
 		var mapOptions = {
 			center: new naver.maps.LatLng(37.5666103, 126.9783882),
-			zoom: 4,
+			zoom: 5,
 			maxZoom: 8,
 		};
 
@@ -75,21 +70,6 @@
 		contentMarkers[{{ locContent.id }}] = marker;
 		contentWindows[{{ locContent.id }}] = infowindow;
 
-		// naver.maps.Event.addListener(marker, 'click', function(e) {
-		// 	if (contentWindows[{{ locContent.id }}].getMap()) {
-		//         contentWindows[{{ locContent.id }}].close();
-		//     } else {
-		//         contentWindows[{{ locContent.id }}].open(map, contentMarkers[{{ locContent.id }}]);
-		//     }
-		// });
-
-
-
-			// console.log("{{content.locationText1}}");
-			// console.log("{{content.locationText2}}");
-			// console.log("{{content.locationText3}}");
-			// console.log("{{content.locationText4}}");
-
 		{% endfor %}
 
 		function getClickHandler(seq) {
@@ -108,6 +88,7 @@
 		for (var i = 0 ; i < markerIds.length; i++) {
 		    naver.maps.Event.addListener(contentMarkers[markerIds[i]], 'click', getClickHandler(markerIds[i]));
 		}
+		
 	</script>
 
 	
