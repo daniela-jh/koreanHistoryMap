@@ -41,6 +41,29 @@
 		};
 
 		var map = new naver.maps.Map('map', mapOptions);
+		var contentMarkers = {};
+
+		{% for content in contents %}
+		var marker = new naver.maps.Marker({
+			position: new naver.maps.LatLng({{ content.locLat }}, {{ content.locLng }}),
+			map: map
+		});
+
+		contentMarkers[{{ content.id }}] = marker;
+
+		naver.maps.Event.addListener(map, 'click', function(e) {
+			console.log("{{content.locationText1}}");
+			console.log("{{content.locationText2}}");
+			console.log("{{content.locationText3}}");
+			console.log("{{content.locationText4}}");
+		});
+
+		{% endfor %}
+
+		naver.maps.Event.addListener(map, 'click', function(e) {
+			marker.setPosition(e.latlng);
+		});
+
 	</script>
 
 	
