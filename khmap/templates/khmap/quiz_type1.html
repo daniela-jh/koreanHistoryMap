@@ -56,18 +56,18 @@
 		<p> Q.다음 설명에 해당하는 지역은? </p>
 	</div>
 	<div class="description">
-		<p> 설명 1 </p>
-		<p> 설명 2 </p>
-		<p> 설명 3 </p>
-		<p> 설명 4 </p>
+		<p> {{ randomQuiz.locationText1 }} </p>
+		<p> {{ randomQuiz.locationText2 }} </p>
+		<p> {{ randomQuiz.locationText3 }} </p>
+		<p> {{ randomQuiz.locationText4 }} </p>
 	</div>
 	<div class="options">
 		<ul class="list-group">
- 		<li class="list-group-item active">① 진주</li>
-		<li class="list-group-item">② 강화도</li>
-		<li class="list-group-item">③ 평양</li>
-		<li class="list-group-item">④ 개성</li>
-</ul>
+ 		<li class="list-group-item">① {{ answerList.0.locationName }}</li>
+		<li class="list-group-item">② {{ randomQuiz.locationName }}</li>
+		<li class="list-group-item">③ {{ answerList.1.locationName }}</li>
+		<li class="list-group-item">④ {{ answerList.2.locationName }}</li>
+		</ul>
 	</div>
 	<div class="answerCheck">
 		<button type="button" class="btn btn-warning">정답 확인</button>
