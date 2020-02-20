@@ -20,3 +20,9 @@ def quiz_type1(request):
     randomAnswer = Content.objects.order_by("?").exclude(locationName=randomQuiz.locationName)[:3]
     answerList = list(randomAnswer)
     return render(request, 'khmap/quiz_type1.html', {'randomQuiz': randomQuiz, 'answerList': answerList})
+
+def quiz_type1_edit(request):
+    randomQuiz = Content.objects.order_by("?").first()
+    randomAnswer = Content.objects.order_by("?").exclude(locationName=randomQuiz.locationName)[:3]
+    answerList = list(randomAnswer)
+    return render(request, 'khmap/quiz_type1_edit.html', {'randomQuiz': randomQuiz, 'answerList': answerList})
