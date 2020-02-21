@@ -1,0 +1,23 @@
+{% extends 'khmap/navbar_formap.html' %}
+{% block content %}
+    {% for content in contents %}
+	<div class="card searchResult">
+        <div class="card-body">
+            <h5 class="card-title">{{ content.locationName }}</h5>
+            <p class="card-text">
+                {{ content.locationText1 }}<br>
+                {{ content.locationText2 }}<br>
+                {{ content.locationText3 }}<br>
+                {{ content.locationText4 }}<br>
+            </p>
+        </div>
+    </div>
+    {% empty %}
+
+        <p class="text-center"> <b>"{{ query }}"</b> 검색 결과가 없습니다. </p>
+
+    {% endfor %}
+
+
+
+{% endblock %}
