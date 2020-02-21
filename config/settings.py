@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'khmap',
     'api',
+    'search_app',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +57,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'khmap', 'templates/'), os.path.join(BASE_DIR, 'search_app', 'templates/')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
