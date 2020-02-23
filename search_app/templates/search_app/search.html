@@ -1,32 +1,27 @@
 {% extends 'khmap/navbar_formap.html' %}
 {% block content %}
-    {% load static %}
+<div>
+<p class="text-center"><br> "<strong>{{ query }}</strong>" 에 대한 <b>{{ contents.count }}</b> 개의 검색 결과가 있습니다. </p>
+</div>
     {% for content in contents %}
 	<div class="card searchResult">
         {% autoescape off %}
         <div class="card-body">
-            <h5 class="card-title">{{ content.locationName }}</h5>
-            <p class="card-text">
+            <h5 class="card-title col-3 col-lg-2">{{ content.locationName }}</h5>
+            <p class="card-text col-6 col-lg-8">
                 {{ content.locationText1 }}<br>
                 {{ content.locationText2 }}<br>
                 {{ content.locationText3 }}<br>
                 {{ content.locationText4 }}<br>
             </p>
+            <a href="#" class="btn btn-outline-default waves-effect btn-sm col-3 col-lg-2">위치</a>
         </div>
         {% endautoescape %}
     </div>
-    <script type="text/javascript" src="{% static 'hilitor.js' %}"> </script>
-    <script type="text/javascript">
-        var myHilitor;
-        document.addEventListener("DOMContentLoaded", function() {
-            myHilitor = new Hilitor();
-            myHilitor.apply("{{ query }}");
-        }, false);
-        console.log("{{ query }}");
-    </script>
+
     {% empty %}
 
-        <p class="text-center"> <b>"{{ query }}"</b> 검색 결과가 없습니다. </p>
+        <p class="text-center"><br> "<strong>{{ query }}</strong>" 검색 결과가 없습니다. </p>
 
     {% endfor %}
 
