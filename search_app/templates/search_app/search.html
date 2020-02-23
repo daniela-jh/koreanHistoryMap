@@ -1,7 +1,9 @@
 {% extends 'khmap/navbar_formap.html' %}
 {% block content %}
+    {% load static %}
     {% for content in contents %}
 	<div class="card searchResult">
+        {% autoescape off %}
         <div class="card-body">
             <h5 class="card-title">{{ content.locationName }}</h5>
             <p class="card-text">
@@ -11,7 +13,17 @@
                 {{ content.locationText4 }}<br>
             </p>
         </div>
+        {% endautoescape %}
     </div>
+    <script type="text/javascript" src="{% static 'hilitor.js' %}"> </script>
+    <script type="text/javascript">
+        var myHilitor;
+        document.addEventListener("DOMContentLoaded", function() {
+            myHilitor = new Hilitor();
+            myHilitor.apply("{{ query }}");
+        }, false);
+        console.log("{{ query }}");
+    </script>
     {% empty %}
 
         <p class="text-center"> <b>"{{ query }}"</b> 검색 결과가 없습니다. </p>

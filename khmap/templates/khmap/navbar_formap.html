@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	{% load static %}
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
@@ -14,17 +15,19 @@
   <!-- Material Design for Bootstrap -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/css/mdb.min.css" rel="stylesheet">
 
-	
-	<!-- jquery -->
-<!-- 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<style>
+		strong {
+			font-weight: bold;
+			color: #0096fe;
+		}
+	</style>
 
 </head>
 <body>
-	<nav class="navbar navbar-dark green justify-content-between">
-		<a class="navbar-brand" href="#">한국사</a>
+	<nav class="navbar navbar-dark aqua-gradient justify-content-between">
+		<a class="navbar-brand" href="#">한국사지도</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		</button>
@@ -37,13 +40,26 @@
 					<a class="nav-link" href="/quiz">퀴즈</a>
 				</li>
 			</ul>
-			<form class="form-inline my-1" action="{% url 'search_app:searchResult' %}" method="get">
-				<div class="md-form form-sm my-0">
-					<input class="form-control-sm mr-sm-2 mb-0" type="search" placeholder="지역/지식 검색" aria-label="Search" name="q">
+			<form class="form-inline" onsubmit="return checkValues();" action="{% url 'search_app:searchResult' %}" method="get">
+				<div class="md-form my-0">
+					<input class="form-control mr-md-2" type="search" placeholder="지역/지식 검색" aria-label="Search" name="q" id="SearchField">
 				</div>
-				<button class="btn btn-outline-white btn-sm my-0" type="submit">검색</button>
+				<button class="btn btn-outline-white btn-md my-2 my-md-0 ml-3" type="submit">검색</button>
 			</form>
-		</div>		
+
+			<script>
+				function checkValues() {
+					searchBox = document.getElementById("SearchField").value;
+					searchBoxTrim = searchBox.trim()
+					if (searchBoxTrim == "") {
+						alert("검색어를 입력하세요");
+						return false;
+					};
+				};
+			</script>
+		</div>
+		
+	
 	</nav>
 	
 	<div>
