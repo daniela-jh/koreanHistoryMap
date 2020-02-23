@@ -6,7 +6,7 @@
     {% for content in contents %}
 	<div class="card searchResult">
         {% autoescape off %}
-        <div class="card-body">
+        <div class="card-body" id="searchCard">
             <h5 class="card-title col-3 col-lg-2">{{ content.locationName }}</h5>
             <p class="card-text col-6 col-lg-8">
                 {{ content.locationText1 }}<br>
@@ -14,14 +14,14 @@
                 {{ content.locationText3 }}<br>
                 {{ content.locationText4 }}<br>
             </p>
-            <a href="#" class="btn btn-outline-default waves-effect btn-sm col-3 col-lg-2">위치</a>
+            <a href="/" class="btn btn-outline-default waves-effect btn-sm col-3 col-lg-2">위치</a>
         </div>
         {% endautoescape %}
     </div>
 
     {% empty %}
 
-        <p class="text-center"><br> "<strong>{{ query }}</strong>" 검색 결과가 없습니다. </p>
+        <p class="text-center"> </p>
 
     {% endfor %}
 

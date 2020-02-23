@@ -19,13 +19,16 @@
 		markerIds.push({{ locContent.id }});
 
 		var contentString = [
-			'<div class="iw_inner">',
-			'	<h4> {{locContent.locationName}} </h4>',
-			'	<p> {{locContent.locationText1}}<br>',
-			'		{{locContent.locationText2}}<br>',
-			'		{{locContent.locationText3}}<br>',
-			'		{{locContent.locationText4}}<br>',
+			'<div class="iw_inner iwCustom card">',
+			'	<div class="card-body">',
+			'		<h5 class="card-title"> <b> {{locContent.locationName}} </b> </h5>',
+			'		<hr>',
+			'		<p class="card-text"> {{locContent.locationText1}}<br>',
+			'			{{locContent.locationText2}}<br>',
+			'			{{locContent.locationText3}}<br>',
+			'			{{locContent.locationText4}}<br>',
 			'	</p>',
+			'	</div>',
 			'</div>'
 		].join('');
 
@@ -38,7 +41,15 @@
 		});
 
 		var infowindow = new naver.maps.InfoWindow({
-		    content: contentString
+		    content: contentString,
+
+		    maxWidth: 300,
+			backgroundColor: "transparent",
+			borderWidth: 0,
+			anchorSize: new naver.maps.Size(10, 0),
+			anchorSkew: false,
+
+			pixelOffset: new naver.maps.Point(10, -10)
 		});
 
 		contentMarkers[{{ locContent.id }}] = marker;

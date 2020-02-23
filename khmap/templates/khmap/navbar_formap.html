@@ -21,7 +21,7 @@
 			font-weight: bold;
 			color: #0096fe;
 		}
-				.quizButtons{
+		.quizButtons{
 			margin: auto;
 			height: 300px;
 			width: 400px;
@@ -31,7 +31,7 @@
 			justify-content: space-around;
 			align-content: center
 		}
-				.quizContent {
+		.quizContent {
 			margin: auto;
 			max-width: 500px;
 			display: flex;
@@ -57,10 +57,14 @@
 			margin: auto;
 		}
 
-		.card-body {
+		#searchCard {
 			display: inline-flex;
 			justify-content: space-around;
 			align-items: center;
+		}
+
+		.iwCustom {
+			width: 240px;
 		}
 	</style>
 
@@ -82,7 +86,7 @@
 			</ul>
 			<form class="form-inline" onsubmit="return checkValues();" action="{% url 'search_app:searchResult' %}" method="get">
 				<div class="md-form my-0">
-					<input class="form-control mr-md-2" type="search" placeholder="지역/지식 검색" aria-label="Search" name="q" id="SearchField">
+					<input class="form-control mr-md-2" type="search" placeholder="지역/지식 키워드" aria-label="Search" name="q" id="SearchField">
 				</div>
 				<button class="btn btn-outline-white btn-md my-2 my-md-0 ml-3" type="submit">검색</button>
 			</form>
