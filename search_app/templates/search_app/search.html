@@ -1,7 +1,7 @@
 {% extends 'khmap/navbar_formap.html' %}
 {% block content %}
 <div>
-<p class="text-center"><br> "<strong>{{ query }}</strong>" 에 대한 <b>{{ contents.count }}</b> 개의 검색 결과가 있습니다. </p>
+<p class="text-center"><br> "<strong>{{ query }}</strong>" 검색결과 <b>{{ contents.count }}</b> 개 </p>
 </div>
     {% for content in contents %}
 	<div class="card searchResult">
@@ -14,10 +14,16 @@
                 {{ content.locationText3 }}<br>
                 {{ content.locationText4 }}<br>
             </p>
-            <a href="/" class="btn btn-outline-default waves-effect btn-sm col-3 col-lg-2">위치</a>
+            <a href id="{{ content.id }}" class="btn btn-outline-default waves-effect btn-sm col-3 col-lg-2">위치</a>
         </div>
         {% endautoescape %}
+
     </div>
+    <script>
+        var searchInfo = encodeURI("/?text={{ content.locationName }}")
+        console.log(searchInfo);
+        document.getElementById("{{ content.id }}").setAttribute("href", searchInfo)
+    </script> 
 
     {% empty %}
 

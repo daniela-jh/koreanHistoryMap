@@ -39,6 +39,8 @@
 			position: position,
 			title: "{{ locContent.locationName }}"		
 		});
+		marker.title = "{{ locContent.locationName }}"
+		marker.id = "{{ locContent.locationName }}"
 
 		var infowindow = new naver.maps.InfoWindow({
 		    content: contentString,
@@ -55,7 +57,10 @@
 		contentMarkers[{{ locContent.id }}] = marker;
 		contentWindows[{{ locContent.id }}] = infowindow;
 
+
+
 		{% endfor %}
+
 
 		function getClickHandler(seq) {
 			return function(e) {
@@ -73,9 +78,26 @@
 		for (var i = 0 ; i < markerIds.length; i++) {
 		    naver.maps.Event.addListener(contentMarkers[markerIds[i]], 'click', getClickHandler(markerIds[i]));
 		}
-		
+
+
+
+		function showSearchInfo(seq) {			
+			var marker, contentWindow, prevURL;
+
+				var marker = contentMarkers[seq],
+					contentWindow  = contentWindows[seq];
+				var prevURL = window.location.href.indexOf(encodeURI(marker.title));
+				if (prevURL == -1) {
+					contentWindow.close();
+				} else {
+					contentWindow.open(map, marker);
+				}
+		};
+
+		for (var i = 0 ; i < markerIds.length; i++) {
+			naver.maps.Event.addListener(map, 'idle', showSearchInfo(markerIds[i]));
+		};
+
+
 	</script>
 {% endblock %}
-	
-</body>
-</html>
