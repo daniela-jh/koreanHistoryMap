@@ -27,6 +27,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'historymap.kr',
     'www.historymap.kr',
+    '15.164.228.211',
 ]
 
 
