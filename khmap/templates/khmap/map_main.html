@@ -3,25 +3,22 @@
 	<div id="map"></div>
 
 	<script type="text/javascript">
-
-
-
 		var $window = $(window);
 
-		function getMapSize() {
-		    var size = new naver.maps.Size($window.width(), $window.height() - 100);
+		function getMapSize(screen_width, screen_height) {
+
+			// console.log(_window.width());
+			var headerHeight = $("nav.navbar").outerHeight();
+			var footerHeight = $("div#ad").outerHeight();
+
+			console.log(screen_width);
+			console.log(screen_height);
+			console.log($window.outerWidth());
+
+		    var size = new naver.maps.Size(screen_width, screen_height - headerHeight - footerHeight);
 
 		    return size;
 		};
-
-		$(document).ready(function(){
-			map.setSize(getMapSize());
-			$window.on('resize', function() {
-		    map.setSize(getMapSize());
-			});
-		});
-
-		
 
 		var mapOptions = {
 			center: new naver.maps.LatLng(37.5666103, 126.9783882),
@@ -33,6 +30,16 @@
 		var contentMarkers = {},
 			contentWindows = {};
 		var markerIds = [];
+
+		$(document).ready(function(){
+		    map.setSize(getMapSize($window.outerWidth() - 0, $window.innerHeight()));
+
+			$window.on('resize', function() {
+				console.log(this.screen);
+		    	// map.setSize(getMapSize(this.screen.availWidth, this.screen.availHeight));
+		    	map.setSize(getMapSize($window.outerWidth() - 0, $window.innerHeight()));
+			});
+		});
 
 		{% for locContent in contents %}
 
