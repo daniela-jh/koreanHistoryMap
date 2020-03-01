@@ -7,14 +7,14 @@
 	<div class="card searchResult">
         {% autoescape off %}
         <div class="card-body" id="searchCard">
-            <h5 class="card-title col-3 col-lg-2">{{ content.locationName }}</h5>
-            <p class="card-text col-6 col-lg-8">
+            <h5 class="card-title col-3 col-sm-2">{{ content.locationName }}</h5>
+            <p class="card-text col-6 col-sm-8 card-text-custom">
                 {{ content.locationText1 }}<br>
                 {{ content.locationText2 }}<br>
                 {{ content.locationText3 }}<br>
                 {{ content.locationText4 }}<br>
             </p>
-            <a href id="{{ content.id }}" class="btn btn-outline-default waves-effect btn-sm col-3 col-lg-2">위치</a>
+            <a href id="{{ content.id }}" class="card-btn btn btn-outline-default waves-effect btn-sm col-3 col-sm-2">위치</a>
         </div>
         {% endautoescape %}
 

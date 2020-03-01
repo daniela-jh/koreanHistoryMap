@@ -28,6 +28,7 @@ ALLOWED_HOSTS = [
     'historymap.kr',
     'www.historymap.kr',
     '15.164.228.211',
+    '127.0.0.1',
 ]
 
 

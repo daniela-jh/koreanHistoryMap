@@ -53,7 +53,6 @@
 	</div>
 		<script type="text/javascript">
 			function answerCheck() {
-				console.log($('li.active').length)
 				if ($('li.active').length == 0) {
 					alert('정답을 선택해주세요');
 				} else if ($('li.active').text()=='{{ randomQuiz.locationName }}') {
