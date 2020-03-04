@@ -11,9 +11,9 @@
 			var headerHeight = $("nav.navbar").outerHeight();
 			var footerHeight = $("div#ad").outerHeight();
 
-			console.log(screen_width);
-			console.log(screen_height);
-			console.log($window.outerWidth());
+			// console.log(screen_width);
+			// console.log(screen_height);
+			// console.log($window.outerWidth());
 
 		    var size = new naver.maps.Size(screen_width, screen_height - headerHeight - footerHeight);
 
@@ -21,7 +21,7 @@
 		};
 
 		var mapOptions = {
-			center: new naver.maps.LatLng(37.5666103, 126.9783882),
+			center: new naver.maps.LatLng(38.0000000, 126.9783882),
 			zoom: 4,
 			maxZoom: 7,
 		};
@@ -35,7 +35,7 @@
 		    map.setSize(getMapSize($window.outerWidth() - 0, $window.innerHeight()));
 
 			$window.on('resize', function() {
-				console.log(this.screen);
+				// console.log(this.screen);
 		    	// map.setSize(getMapSize(this.screen.availWidth, this.screen.availHeight));
 		    	map.setSize(getMapSize($window.outerWidth() - 0, $window.innerHeight()));
 			});
@@ -64,7 +64,18 @@
 		var marker = new naver.maps.Marker({			
 			map: map,
 			position: position,
-			title: "{{ locContent.locationName }}"		
+			title: "{{ locContent.locationName }}",
+			icon: {
+				path: [new naver.maps.Point(0, 15), new naver.maps.Point(8, 0), new naver.maps.Point(5, -7), new naver.maps.Point(-5, -7), new naver.maps.Point(-8, 0)],
+				style: "closedPath",
+				// radius: '7',
+				fillColor: '#17a2b8',
+		        fillOpacity: 0.7,
+		        anchor: new naver.maps.Point(6, 15),
+		        strokeColor: '#17a2b8',
+		        strokeStyle: 'solid',
+		        strokeWeight: 1
+			}		
 		});
 		marker.title = "{{ locContent.locationName }}"
 		marker.id = "{{ locContent.locationName }}"
@@ -77,8 +88,7 @@
 			borderWidth: 0,
 			anchorSize: new naver.maps.Size(10, 0),
 			anchorSkew: false,
-
-			pixelOffset: new naver.maps.Point(10, -10)
+			pixelOffset: new naver.maps.Point(0, -10),
 		});
 
 		contentMarkers[{{ locContent.id }}] = marker;
