@@ -1,77 +1,110 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>한국사 지도_퀴즈_유형1</title>
+{% extends 'khmap/navbar_formap.html' %}
+{% block content %}
 
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	
-	<!-- jquery -->
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-	<style>
-		.quizContent {
-			margin: auto;
-			max-width: 500px;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-around;
-			align-content: space-around;
-
-		}
-		.question {
-			margin: 10px 10px 0 10px;
-			padding: 10px;
-			font-size: large
-		}
-		.description {
-			margin: 0 20px 10px 20px;
-			padding: 10px;
-			border: 3px solid #f4f4f4;
-		}
-		.options {
-			margin: 20px;
-		}
-		.answerCheck {
-			margin: auto;
-		}
-	</style>
-
-</head>
-<body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="nav-link active" href="/">지도</a>
-		<form class="form-inline">
-			<input class="form-control mr-sm-2" type="search" placeholder="지역/지식 검색" aria-label="Search">
-			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
-		</form>
-	</nav>
 	<div class="quizContent">
-	<div class="question">
-		<p> Q.다음 설명에 해당하는 지역은? </p>
-	</div>
-	<div class="description">
-		<p> {{ randomQuiz.locationText1 }} </p>
-		<p> {{ randomQuiz.locationText2 }} </p>
-		<p> {{ randomQuiz.locationText3 }} </p>
-		<p> {{ randomQuiz.locationText4 }} </p>
-	</div>
-	<div class="options">
-		<ul class="list-group">
- 		<li class="list-group-item">① {{ answerList.0.locationName }}</li>
-		<li class="list-group-item">② {{ randomQuiz.locationName }}</li>
-		<li class="list-group-item">③ {{ answerList.1.locationName }}</li>
-		<li class="list-group-item">④ {{ answerList.2.locationName }}</li>
-		</ul>
-	</div>
-	<div class="answerCheck">
-		<button type="button" class="btn btn-warning">정답 확인</button>
-	</div>
+		<div id="question">
+			<p> Q1. 다음 설명에 해당하는 지역은? </p>
+		</div>
+		<div id="description">
+		</div>
+		<div class="options">
+		{% autoescape off %}
+			<script>
+				function Shuffle(o) {
+					for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+					return o;
+				};				
+
+				var realQuizSet = {{ realQuizSet }};
+				var n=0;
+
+				function answerCheck() {
+					console.log($('li.active').length)
+					if ($('li.active').length == 0) {
+						alert('정답을 선택해주세요');
+					} else if ($('li.active').text()==realQuizSet[n-1]['answer']) {
+						var answerAlert = realQuizSet[n-1]['answer'] + ': 정답입니다!'
+						alert(answerAlert);
+						document.getElementById("nextQuiz").setAttribute("aria-disabled", "false");
+						document.getElementById("nextQuiz").setAttribute("class", "btn btn-success");
+					} else {
+						alert('오답입니다');
+					}
+				};
+
+				function nextQuizSet() {
+					if (n < realQuizSet.length) {				
+						
+						var realQuizSetN = realQuizSet[n];
+						let text1 = realQuizSetN['text1'];
+						let text2 = realQuizSetN['text2'];
+						let text3 = realQuizSetN['text3'];
+						let text4 = realQuizSetN['text4'];
+						let answer = realQuizSetN['answer'];
+						let option1 = realQuizSetN['option1'];
+						let option2 = realQuizSetN['option2'];
+						let option3 = realQuizSetN['option3'];
+						let qNumber = n + 1;
+						var quizArray = [answer, option1, option2, option3]
+						Shuffle(quizArray);
+						$(function() {
+							for (var i=0; i < quizArray.length; i++) {
+								$("#dump").append(quizArray[i]);	
+							};
+							let temp_option = '\
+									<li class="list-group-item list-group-item-action" data-toggle="list" value="quizArray[0]">'+quizArray[0]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" value="quizArray[1]">'+quizArray[1]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" value="quizArray[2]">'+quizArray[2]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" value="quizArray[3]">'+quizArray[3]+'</li>\
+								';
+							$('#optionList').html('');
+							$('#optionList').append(temp_option);
+						});
+
+						let temp_question = '<p> Q' + qNumber + '. 다음 설명에 해당하는 지역은? </p>';
+						$('#question').html('');
+						$('#question').append(temp_question);
+
+						let temp_description = '\
+							<p>' + text1 + '</p>\
+							<p>' + text2 + '</p>\
+							<p>' + text3 + '</p>\
+							<p>' + text4 + '</p>\
+							';
+						$('#description').html('');
+						$('#description').append(temp_description);
+						$('li.list-group-item').removeClass('active');
+						document.getElementById("nextQuiz").setAttribute("aria-disabled", "true");
+						document.getElementById("nextQuiz").setAttribute("class", "btn btn-success disabled");
+
+						n++;
+					} else {
+						alert('마지막 문제입니다');
+					};
+				};
+
+				$(document).ready(function(){
+					nextQuizSet();
+				});
+
+			</script>
+		{% endautoescape %}
+
+			<ol class="list-group" id="optionList">
+			</ol>
+			<script>
+			$(document).ready(function() {
+				$('li.list-group-item').click(function(){
+					$('li.list-group-item').removeClass('active');
+					$(this).addClass('active')
+				});
+			});
+			</script>
+		</div>
+		<div class="answerCheck">
+			<button type="button" class="btn btn-primary" onclick="answerCheck()">정답 확인</button>
+			<a type="button" id="nextQuiz" class="btn btn-success disabled" aria-disabled="true" onclick="nextQuizSet()">다음 문제</a>
+		</div>
+		
 </div>
-</body>
-</html>
+{% endblock %}
