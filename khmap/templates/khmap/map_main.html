@@ -111,24 +111,14 @@
 					infoWindow.open(map, marker);
 				}
 			}
-		}
-
-
-		for (var i = 0 ; i < markerIds.length; i++) {
-		    naver.maps.Event.addListener(contentMarkers[markerIds[i]], 'click', getClickHandler(markerIds[i]));
-		}
+		};
 
 		function closeInfoWindow(seq) {
 			return function(e) {
 				var infoWindow = contentWindows[seq];
 				infoWindow.close();
 			}
-		}
-
-		for (var i = 0 ; i < markerIds.length; i++) {
-			naver.maps.Event.addListener(map, 'click', closeInfoWindow(markerIds[i]));
-		}	
-
+		};
 
 		function showSearchInfo(seq) {			
 			var marker, contentWindow, prevURL;
@@ -144,6 +134,8 @@
 		};
 
 		for (var i = 0 ; i < markerIds.length; i++) {
+			naver.maps.Event.addListener(contentMarkers[markerIds[i]], 'click', getClickHandler(markerIds[i]));
+			naver.maps.Event.addListener(map, 'click', closeInfoWindow(markerIds[i]));
 			naver.maps.Event.addListener(map, 'idle', showSearchInfo(markerIds[i]));
 		};
 
