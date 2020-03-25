@@ -1,10 +1,11 @@
 {% extends 'khmap/navbar_formap.html' %}
 {% block content %}
 	<div class="quizButtons">
-		<a class="btn btn-info btn-lg" href="/quiz/type1/" type="button">
+		<a href="/quiz/type1/" class="btn btn-default btn-lg quizButton" type="button">
 			설명 보고 지역 맞추기
 		</a>
-		<a type="button" class="btn btn-info btn-lg">지역별 틀린 설명 고르기</a>
-		<a type="button" class="btn btn-info btn-lg">랜덤 유형</a>
+		<a href="/quiz/type2/" class="btn btn-info btn-lg quizButton" type="button">
+			다른 지역 설명 고르기
+		</a>
 	</div>
 {% endblock %}

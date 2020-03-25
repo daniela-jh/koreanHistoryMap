@@ -1,0 +1,98 @@
+{% extends 'khmap/navbar_formap.html' %}
+{% block content %}
+
+	<div class="quizContent">
+		<div id="question">
+		</div>
+		<div class="options">
+		{% autoescape off %}
+			<script>
+				function Shuffle(o) {
+					for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+					return o;
+				};
+
+				var realQuizSet2 = {{ realQuizSet2 }};
+				var n=0;
+
+				function answerCheck() {
+					if ($('li.active').length == 0) {
+						alert('정답을 선택해주세요');
+					} else if ($('li.active').text()==realQuizSet2[n-1]['wrongAnswer']) {
+						var answerAlert = realQuizSet2[n-1]['wrongAnswer'] + ': ' +realQuizSet2[n-1]['wrongLocation'] +
+										', 나머지는 '+realQuizSet2[n-1]['answerLocation']+'에 대한 설명입니다'
+
+						alert(answerAlert);
+						document.getElementById("nextQuiz").setAttribute("aria-disabled", "false");
+						document.getElementById("nextQuiz").setAttribute("class", "btn btn-success");
+					} else {
+						alert('오답입니다');
+					}
+				};
+
+				function nextQuizSet() {
+					if (n < realQuizSet2.length) {
+
+						var realQuizSetN = realQuizSet2[n];
+						let wrongAnswer = realQuizSetN['wrongAnswer'];
+						let option1 = realQuizSetN['option1'];
+						let option2 = realQuizSetN['option2'];
+						let option3 = realQuizSetN['option3'];
+						let option4 = realQuizSetN['option4'];
+						let qNumber = n + 1;
+						var quizArray = [wrongAnswer, option1, option2, option3, option4]
+						Shuffle(quizArray);
+						$(function() {
+							for (var i=0; i < quizArray.length; i++) {
+								$("#dump").append(quizArray[i]);
+							};
+							let temp_option = '\
+									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt1">'+quizArray[0]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt2">'+quizArray[1]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt3">'+quizArray[2]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt4">'+quizArray[3]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt5">'+quizArray[4]+'</li>\
+								';
+							$('#optionList').html('');
+							$('#optionList').append(temp_option);
+						});
+
+						let temp_question = '<p> Q' + qNumber + '. 다음 설명 중 관련된 지역이 다른 것은? </p>';
+						$('#question').html('');
+						$('#question').append(temp_question);
+
+						$('li.list-group-item').removeClass('active');
+						document.getElementById("nextQuiz").setAttribute("aria-disabled", "true");
+						document.getElementById("nextQuiz").setAttribute("class", "btn btn-success disabled");
+
+						n++;
+					} else {
+						alert('마지막 문제입니다');
+					};
+				};
+
+				$(document).ready(function(){
+					nextQuizSet();
+				});
+
+			</script>
+		{% endautoescape %}
+
+			<ol class="list-group" id="optionList">
+			</ol>
+			<script>
+			$(document).ready(function() {
+				$('li.list-group-item').click(function(){
+					$('li.list-group-item').removeClass('active');
+					$(this).addClass('active')
+				});
+			});
+			</script>
+		</div>
+		<div class="answerCheck">
+			<button type="button" class="btn btn-primary" onclick="answerCheck()">정답 확인</button>
+			<a type="button" id="nextQuiz" class="btn btn-success disabled" aria-disabled="true" onclick="nextQuizSet()">다음 문제</a>
+		</div>
+		
+</div>
+{% endblock %}
