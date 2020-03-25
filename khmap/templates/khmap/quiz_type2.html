@@ -19,7 +19,7 @@
 					if ($('li.active').length == 0) {
 						alert('정답을 선택해주세요');
 					} else if ($('li.active').text()==realQuizSet2[n-1]['wrongAnswer']) {
-						var answerAlert = realQuizSet2[n-1]['wrongAnswer'] + ': ' +realQuizSet2[n-1]['wrongLocation'] +
+						var answerAlert = '정답! '+realQuizSet2[n-1]['wrongAnswer'] + ': ' +realQuizSet2[n-1]['wrongLocation'] +
 										', 나머지는 '+realQuizSet2[n-1]['answerLocation']+'에 대한 설명입니다'
 
 						alert(answerAlert);
