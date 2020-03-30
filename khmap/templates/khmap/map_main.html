@@ -1,49 +1,11 @@
 {% extends 'khmap/navbar_formap.html' %}
 {% block content %}
+{% load static %}
+
 	<div id="map"></div>
-
-	<script type="text/javascript">
-		var $window = $(window);
-
-		function getMapSize(screen_width, screen_height) {
-
-			// console.log(_window.width());
-			var headerHeight = $("nav.navbar").outerHeight();
-			var footerHeight = $("div#ad").outerHeight();
-
-			// console.log(screen_width);
-			// console.log(screen_height);
-			// console.log($window.outerWidth());
-
-		    var size = new naver.maps.Size(screen_width, screen_height - headerHeight - footerHeight);
-
-		    return size;
-		};
-
-		var mapOptions = {
-			center: new naver.maps.LatLng(38.0000000, 126.9783882),
-			zoom: 5,
-			minZoom: 3,
-			maxZoom: 7,
-		};
-
-		var map = new naver.maps.Map('map', mapOptions);
-		var contentMarkers = {},
-			contentWindows = {};
-		var markerIds = [];
-
-		$(document).ready(function(){
-		    map.setSize(getMapSize($window.outerWidth() - 0, $window.innerHeight()));
-
-			$window.on('resize', function() {
-				// console.log(this.screen);
-		    	// map.setSize(getMapSize(this.screen.availWidth, this.screen.availHeight));
-		    	map.setSize(getMapSize($window.outerWidth() - 0, $window.innerHeight()));
-			});
-		});
-
-		{% for locContent in contents %}
-
+	<script src="{% static 'khmap/js/map.js' %}" type="text/javascript"></script>
+	<script>
+	{% for locContent in contents %}
 		markerIds.push({{ locContent.id }});
 
 		var contentString = [
@@ -62,7 +24,7 @@
 
 		var position = new naver.maps.LatLng({{ locContent.locLat }}, {{ locContent.locLng }});
 
-		var marker = new naver.maps.Marker({			
+		var marker = new naver.maps.Marker({
 			map: map,
 			position: position,
 			title: "{{ locContent.locationName }}",
@@ -71,20 +33,20 @@
 				style: "closedPath",
 				// radius: '7',
 				fillColor: '#17a2b8',
-		        fillOpacity: 0.7,
-		        anchor: new naver.maps.Point(6, 15),
-		        strokeColor: '#17a2b8',
-		        strokeStyle: 'solid',
-		        strokeWeight: 1
-			}		
+				fillOpacity: 0.7,
+				anchor: new naver.maps.Point(6, 15),
+				strokeColor: '#17a2b8',
+				strokeStyle: 'solid',
+				strokeWeight: 1
+			}
 		});
 		marker.title = "{{ locContent.locationName }}"
 		marker.id = "{{ locContent.locationName }}"
 
 		var infowindow = new naver.maps.InfoWindow({
-		    content: contentString,
+			content: contentString,
 
-		    maxWidth: 300,
+			maxWidth: 300,
 			backgroundColor: "transparent",
 			borderWidth: 0,
 			anchorSize: new naver.maps.Size(10, 0),
@@ -120,7 +82,7 @@
 			}
 		};
 
-		function showSearchInfo(seq) {			
+		function showSearchInfo(seq) {
 			var marker, contentWindow, prevURL;
 
 				var marker = contentMarkers[seq],
@@ -138,8 +100,6 @@
 			naver.maps.Event.addListener(map, 'click', closeInfoWindow(markerIds[i]));
 			naver.maps.Event.addListener(map, 'idle', showSearchInfo(markerIds[i]));
 		};
-
-
 	</script>
 	<div id="ad">
 		History Map

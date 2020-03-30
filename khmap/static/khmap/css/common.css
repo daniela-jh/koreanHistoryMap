@@ -1,0 +1,89 @@
+strong {
+    font-weight: bold;
+    color: #0096fe;
+}
+#map {
+    width: 100%;
+    height: 700px;
+}
+#ad {
+    background-color: #17a2b8;
+    text-align: center;
+    color: #ffffff;
+    padding: 10px;
+
+}
+
+.quizButtons{
+    margin: auto;
+    height: 300px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    flex-grow : 0;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.quizContent {
+    margin: auto;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: space-around;
+
+}
+#question {
+    margin: 10px 10px 0 10px;
+    padding: 10px;
+    font-size: large
+}
+#description {
+    margin: 0 20px 20px 20px;
+    padding: 10px;
+    border: 3px solid #f4f4f4;
+}
+.options {
+    margin: 0 20px 20px 20px;
+}
+.answerCheck {
+    margin: auto;
+}
+
+#searchCard {
+    display: inline-flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.iwCustom {
+    width: 240px;
+}
+
+@media (max-width:500px){
+    .card-title {
+        padding: 2px;
+    }
+    p.card-text-custom {
+        padding: 2px;
+    }
+    .card-btn {
+        padding: 2px;
+    }
+}
+
+@media (max-width:320px){
+    .description {
+        font-size: 0.8em;
+        padding: 5px;
+    }
+    .question {
+        padding: 5px;
+        font-size: medium;
+    }
+
+    .options {
+        font-size: 0.8em;
+    }
+}
