@@ -29,15 +29,19 @@
 			position: position,
 			title: "{{ locContent.locationName }}",
 			icon: {
-				path: [new naver.maps.Point(-6, 7), new naver.maps.Point(0, 15), new naver.maps.Point(6, 7),new naver.maps.Point(8, 0), new naver.maps.Point(5, -7), new naver.maps.Point(0,-9), new naver.maps.Point(-5, -7), new naver.maps.Point(-8, 0)],
-				style: "closedPath",
-				// radius: '7',
-				fillColor: '#17a2b8',
-				fillOpacity: 0.7,
-				anchor: new naver.maps.Point(6, 15),
-				strokeColor: '#17a2b8',
-				strokeStyle: 'solid',
-				strokeWeight: 1
+				url: "{% static 'khmap/img/mk_25.png' %}",
+				// size: new naver.maps.Size(32, 32),
+				origin: new naver.maps.Point(0, 0),
+				anchor: new naver.maps.Point(16, 32)
+				// path: [new naver.maps.Point(-6, 7), new naver.maps.Point(0, 15), new naver.maps.Point(6, 7),new naver.maps.Point(8, 0), new naver.maps.Point(5, -7), new naver.maps.Point(0,-9), new naver.maps.Point(-5, -7), new naver.maps.Point(-8, 0)],
+				// style: "closedPath",
+				// // radius: '7',
+				// fillColor: '#17a2b8',
+				// fillOpacity: 0.7,
+				// anchor: new naver.maps.Point(6, 15),
+				// strokeColor: '#17a2b8',
+				// strokeStyle: 'solid',
+				// strokeWeight: 1
 			}
 		});
 		marker.title = "{{ locContent.locationName }}"
