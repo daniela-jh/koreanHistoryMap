@@ -6,12 +6,11 @@ function getMapSize(screen_width, screen_height) {
     var size = new naver.maps.Size(screen_width, screen_height - headerHeight - footerHeight);
     return size;
 };
-
 var mapOptions = {
     center: new naver.maps.LatLng(38.0000000, 126.9783882),
-    zoom: 5,
+    zoom: 6,
     minZoom: 3,
-    maxZoom: 7,
+    maxZoom: 9,
 };
 
 var map = new naver.maps.Map('map', mapOptions);
