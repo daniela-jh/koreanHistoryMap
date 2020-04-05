@@ -19,11 +19,12 @@
 				var n=0;
 
 				function answerCheck() {
-					console.log($('li.active').length)
+					var activeAnswerText = $('li.active').text()
+					var findAnswer = realQuizSet[n-1]['answer']
 					if ($('li.active').length == 0) {
 						alert('정답을 선택해주세요');
-					} else if ($('li.active').text()==realQuizSet[n-1]['answer']) {
-						var answerAlert = realQuizSet[n-1]['answer'] + ': 정답입니다!'
+					} else if (activeAnswerText.indexOf(findAnswer) != -1) {
+						var answerAlert = findAnswer + ': 정답입니다!'
 						alert(answerAlert);
 						document.getElementById("nextQuiz").setAttribute("aria-disabled", "false");
 						document.getElementById("nextQuiz").setAttribute("class", "btn btn-success");
@@ -52,10 +53,10 @@
 								$("#dump").append(quizArray[i]);	
 							};
 							let temp_option = '\
-									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt1">'+quizArray[0]+'</li>\
-									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt2">'+quizArray[1]+'</li>\
-									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt3">'+quizArray[2]+'</li>\
-									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt4">'+quizArray[3]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt1">① '+quizArray[0]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt2">② '+quizArray[1]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt3">③ '+quizArray[2]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt4">④ '+quizArray[3]+'</li>\
 								';
 							$('#optionList').html('');
 							$('#optionList').append(temp_option);

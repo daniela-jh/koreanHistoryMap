@@ -4,6 +4,8 @@
 	<div class="quizContent">
 		<div id="question">
 		</div>
+		<div id="description">
+		</div>
 		<div class="options">
 		{% autoescape off %}
 			<script>
@@ -16,11 +18,13 @@
 				var n=0;
 
 				function answerCheck() {
+					var activeAnswerText = $('li.active').text()
+					var findAnswer = realQuizSet2[n-1]['wrongAnswer']
 					if ($('li.active').length == 0) {
 						alert('정답을 선택해주세요');
-					} else if ($('li.active').text()==realQuizSet2[n-1]['wrongAnswer']) {
+					} else if (activeAnswerText.indexOf(findAnswer) != -1) {
 						var answerAlert = '정답! '+realQuizSet2[n-1]['wrongAnswer'] + ': ' +realQuizSet2[n-1]['wrongLocation'] +
-										', 나머지는 '+realQuizSet2[n-1]['answerLocation']+'에 대한 설명입니다'
+										'에 대한 설명입니다'
 
 						alert(answerAlert);
 						document.getElementById("nextQuiz").setAttribute("aria-disabled", "false");
@@ -34,6 +38,7 @@
 					if (n < realQuizSet2.length) {
 
 						var realQuizSetN = realQuizSet2[n];
+						let answerLocation = realQuizSetN['answerLocation'];
 						let wrongAnswer = realQuizSetN['wrongAnswer'];
 						let option1 = realQuizSetN['option1'];
 						let option2 = realQuizSetN['option2'];
@@ -47,19 +52,23 @@
 								$("#dump").append(quizArray[i]);
 							};
 							let temp_option = '\
-									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt1">'+quizArray[0]+'</li>\
-									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt2">'+quizArray[1]+'</li>\
-									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt3">'+quizArray[2]+'</li>\
-									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt4">'+quizArray[3]+'</li>\
-									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt5">'+quizArray[4]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt1">① '+quizArray[0]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt2">② '+quizArray[1]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt3">③ '+quizArray[2]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt4">④ '+quizArray[3]+'</li>\
+									<li class="list-group-item list-group-item-action" data-toggle="list" id="ranOpt5">⑤ '+quizArray[4]+'</li>\
 								';
 							$('#optionList').html('');
 							$('#optionList').append(temp_option);
 						});
 
-						let temp_question = '<p> Q' + qNumber + '. 다음 설명 중 관련된 지역이 다른 것은? </p>';
+						let temp_question = '<p> Q' + qNumber + '. 다음 지역에 해당하지 않는 설명은? </p>';
 						$('#question').html('');
 						$('#question').append(temp_question);
+
+						let temp_description ='<b>' + answerLocation + '</b>';
+						$('#description').html('');
+						$('#description').append(temp_description);
 
 						$('li.list-group-item').removeClass('active');
 						document.getElementById("nextQuiz").setAttribute("aria-disabled", "true");
