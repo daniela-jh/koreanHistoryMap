@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'khmap',
     'api',
     'search_app',
+    'letsencrypt',
 ]
 
 MIDDLEWARE = [
